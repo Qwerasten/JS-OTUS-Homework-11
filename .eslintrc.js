@@ -19,6 +19,7 @@ module.exports = {
   rules: {
     "import/prefer-default-export": "off",
     //"no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "no-plusplus": "off",
     "no-alert": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "no-unused-vars": "off",

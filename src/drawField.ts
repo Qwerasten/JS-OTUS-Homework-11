@@ -19,13 +19,20 @@ export function drawField(
         data-x=${columnIndex}
         data-y=${rowIndex}
         class="cell alive" 
-        style="background-color:#FA58D0; height:40px; width:40px;"></td>`;
+        style="background-color:black; height:40px; width:40px;"></td>`;
+        }
+        if (cell === -1) {
+          return `<td 
+        data-x=${columnIndex}
+        data-y=${rowIndex}
+        class="cell will dead" 
+        style="background-color:red; height:40px; width:40px;"></td>`;
         }
         return `<td 
       data-x=${columnIndex}
       data-y=${rowIndex}
       class="cell dead" 
-      style="background-color:#FFFFFF; height:40px; width:40px;"></td>`;
+      style="background-color:white; height:40px; width:40px;"></td>`;
       })
       .join("")}</tr>`;
   };

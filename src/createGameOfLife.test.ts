@@ -36,6 +36,64 @@ describe("createGameOfLife", () => {
       button?.click();
       expect(button?.innerHTML).toBe("Stop");
     });
+    it("changes size on input width", () => {
+      (drawField as jest.Mock).mockImplementation(
+        (fieldEl: HTMLElement, field: number[][]) => {
+          fieldEl.innerHTML = `drawField(${JSON.stringify(field)})`;
+        }
+      );
+      createGameOfLife(2, 2, element);
+      const inputWidth = element.querySelector(
+        ".input-width"
+      ) as HTMLInputElement;
+      const fieldWrapper = element.querySelector(".field-wrapper");
+      inputWidth.value = "4";
+      inputWidth.dispatchEvent(new Event("change"));
+      expect(fieldWrapper?.innerHTML).toBe(
+        `drawField(${JSON.stringify([
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+        ])})`
+      );
+      inputWidth.value = "2";
+      inputWidth.dispatchEvent(new Event("change"));
+      expect(fieldWrapper?.innerHTML).toBe(
+        `drawField(${JSON.stringify([
+          [0, 0],
+          [0, 0],
+        ])})`
+      );
+    });
+    it("changes size on input height", () => {
+      (drawField as jest.Mock).mockImplementation(
+        (fieldEl: HTMLElement, field: number[][]) => {
+          fieldEl.innerHTML = `drawField(${JSON.stringify(field)})`;
+        }
+      );
+      createGameOfLife(2, 2, element);
+      const inputHeight = element.querySelector(
+        ".input-height"
+      ) as HTMLInputElement;
+      const fieldWrapper = element.querySelector(".field-wrapper");
+      inputHeight.value = "4";
+      inputHeight.dispatchEvent(new Event("change"));
+      expect(fieldWrapper?.innerHTML).toBe(
+        `drawField(${JSON.stringify([
+          [0, 0],
+          [0, 0],
+          [0, 0],
+          [0, 0],
+        ])})`
+      );
+      inputHeight.value = "2";
+      inputHeight.dispatchEvent(new Event("change"));
+      expect(fieldWrapper?.innerHTML).toBe(
+        `drawField(${JSON.stringify([
+          [0, 0],
+          [0, 0],
+        ])})`
+      );
+    });
     it("draws field", () => {
       (drawField as jest.Mock).mockImplementation(
         (fieldEl: HTMLElement, field: number[][]) => {
