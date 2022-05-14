@@ -46,8 +46,12 @@ export function drawField(
   const table = htmlElement.querySelector("table");
   table?.addEventListener("click", (ev) => {
     const clickedElement = ev.target as HTMLElement;
-    const x = Number(clickedElement.getAttribute("data-x"));
-    const y = Number(clickedElement.getAttribute("data-y"));
+    const x = clickedElement.getAttribute("data-x")
+      ? Number(clickedElement.getAttribute("data-x"))
+      : -1;
+    const y = clickedElement.getAttribute("data-y")
+      ? Number(clickedElement.getAttribute("data-y"))
+      : -1;
     if (x >= 0 && y >= 0) {
       onCellClick(x, y);
     }

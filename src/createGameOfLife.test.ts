@@ -8,6 +8,7 @@ const sleep = (x: number) => new Promise((resolve) => setTimeout(resolve, x));
 
 describe("createGameOfLife", () => {
   let element: HTMLElement;
+  let onCellClick: (x: number, y: number) => void;
   const originalAlert = window.alert;
   beforeEach(() => {
     element = document.createElement("div");
@@ -111,7 +112,6 @@ describe("createGameOfLife", () => {
       );
     });
     it("redraw field on interaction with it", () => {
-      let onCellClick;
       (drawField as jest.Mock).mockImplementation(
         (
           fieldEl: HTMLElement,
@@ -130,7 +130,6 @@ describe("createGameOfLife", () => {
           [0, 0],
         ])})`
       );
-      // @ts-ignore
       onCellClick(0, 0);
 
       expect(fieldWrapper?.innerHTML).toBe(
@@ -139,7 +138,7 @@ describe("createGameOfLife", () => {
           [0, 0],
         ])})`
       );
-      // @ts-ignore
+
       onCellClick(0, 0);
       expect(fieldWrapper?.innerHTML).toBe(
         `drawField(${JSON.stringify([
@@ -147,9 +146,9 @@ describe("createGameOfLife", () => {
           [0, 0],
         ])})`
       );
-      // @ts-ignore
+
       onCellClick(0, 1);
-      // @ts-ignore
+
       onCellClick(1, 1);
       expect(fieldWrapper?.innerHTML).toBe(
         `drawField(${JSON.stringify([
@@ -159,7 +158,6 @@ describe("createGameOfLife", () => {
       );
     });
     it("on start it runs 1sec timer to update state", async () => {
-      let onCellClick;
       (drawField as jest.Mock).mockImplementation(
         (fieldEl, field, cellClickHandler) => {
           onCellClick = cellClickHandler;
@@ -169,7 +167,7 @@ describe("createGameOfLife", () => {
       createGameOfLife(2, 2, element);
       const button = element.querySelector("button");
       const fieldWrapper = element.querySelector(".field-wrapper");
-      // @ts-ignore
+
       onCellClick(0, 0);
       button?.click();
 
@@ -188,8 +186,6 @@ describe("createGameOfLife", () => {
       );
     });
     it("stops game with alert, when none alive", async () => {
-      let onCellClick;
-
       (drawField as jest.Mock).mockImplementation(
         (fieldEl, field, cellClickHandler) => {
           onCellClick = cellClickHandler;
@@ -198,7 +194,6 @@ describe("createGameOfLife", () => {
       );
       createGameOfLife(2, 2, element);
       const button = element.querySelector("button");
-      // @ts-ignore
       onCellClick(0, 0);
       button?.click();
       await sleep(1000);

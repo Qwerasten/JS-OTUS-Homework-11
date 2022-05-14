@@ -17,9 +17,11 @@ export function createGameOfLife(
   sizeY: number,
   htmlElement: HTMLElement
 ) {
+  const firstSpeed = 1000;
+  const secondSpeed = 500;
   let gameIsRunning = false;
   let timer: number;
-  let gameSpeed = 1000;
+  let gameSpeed: number = firstSpeed;
 
   const inputSpeed: HTMLSelectElement = document.createElement("select");
   const inputWidth: HTMLInputElement = document.createElement("input");
@@ -29,6 +31,7 @@ export function createGameOfLife(
 
   inputSpeed.innerHTML = `<option>1</option><option>2<option>`;
   inputSpeed.selectedIndex = 0;
+  inputWidth.classList.add("input-speed");
   inputWidth.value = String(sizeX);
   inputWidth.classList.add("input-width");
   inputHeight.value = String(sizeY);
@@ -131,7 +134,6 @@ export function createGameOfLife(
       fieldNext = getNextState(field);
       fieldForDrawing = getFieldForDrawing(field, fieldNext);
 
-      // drawField(fieldWrapper, field, cellClickHandler);
       drawField(fieldWrapper, fieldForDrawing, cellClickHandler);
       if (!isAnyoneAlive(field)) {
         stopGame();
@@ -147,9 +149,13 @@ export function createGameOfLife(
     }
   });
   inputSpeed.addEventListener("change", () => {
-    clearInterval();
-    gameSpeed = inputSpeed.selectedIndex === 0 ? 2000 : 500;
-    startGame();
+    if (gameIsRunning) {
+      clearInterval(timer);
+    }
+    gameSpeed = inputSpeed.selectedIndex === 0 ? firstSpeed : secondSpeed;
+    if (gameIsRunning) {
+      startGame();
+    }
   });
   inputHeight.addEventListener("change", onSizeXChange);
   inputWidth.addEventListener("change", onSizeYChange);
