@@ -1,0 +1,75 @@
+{
+  "name": "js--game-of-life",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "jest --coverage",
+    "lint": "prettier --check ./src && eslint ./src && tsc --noEmit ",
+    "lint:fix": "prettier --write ./src && eslint ./src --fix",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otus-js-student/js--game-of-life.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/otus-js-student/js--game-of-life/issues"
+  },
+  "homepage": "https://github.com/otus-js-student/js--game-of-life#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^26.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "babel-jest": "^26.5.0",
+    "babel-loader": "^8.2.5",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.1",
+    "jest": "^26.5.0",
+    "lint-staged": "^10.4.0",
+    "prettier": "2.1.2",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  },
+  "lint-staged": {
+    "src/**/*.js,src/**/*.ts": [
+      "prettier --write",
+      "eslint --cache --fix --ext .js,.ts"
+    ],
+    "src/**/*.{css,md}": "prettier --write",
+    "src/**/*.test.ts": "jest --coverage"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "jest": {
+    "clearMocks": true,
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": false,
+    "coverageThreshold": {
+      "global": {
+        "branches": 60,
+        "functions": 60,
+        "lines": 60
+      }
+    }
+  }
+}
